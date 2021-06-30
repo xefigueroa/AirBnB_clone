@@ -22,17 +22,17 @@ $
 
 They should pass in non-interactive mode: `$ echo "python3 -m unittest discover tests" | bash`
 
-## How to Start
-
-
-
 ## How to use it
 
-
-
-## Examples
-
-
+Command | Description | Example
+--------|-------------|--------
+`help` | Display all commands available | `help`
+`create` | Creates new object | `create <class>`
+`update` | Updates attribute of an object | `User.update('123', {'name': 'Greg_n_Mel'})`
+`all` | Display all objects in class | `User.all()`
+`show` | Retrieve an object from a file | `User.show('123')`
+`destroy` | Destroy specified object | `User.destroy('123')`
+`quit` | Exits | `quit`
 
 ## Authors
 
