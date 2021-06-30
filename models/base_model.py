@@ -15,15 +15,15 @@ class BaseModel:
             *args (tuple): Tuple that contains all arguments
             **kwargs (dict): dict that contains all arguments by key/value
         """
-        tStrFormat = "%Y-%m-%dT%H:%M:%S.%f"  # pep8 said lines too long
-        if len(kwargs) != 0:  # re-creates an instance/object from to_dict()
-            for key, val in kwargs:
-                if key == "created_at":
-                    self.__dict__[key] = datetime.strptime(val, tStrFormat)
-                elif key == "updated_at":
-                    self.__dict__[key] = datetime.strptime(val, tStrFormat)
-                else:
-                    self.__dict__[key] = value
+        if (kwargs):  # re-creates an instance/object from to_dict()
+            del kwargs["__class__"]
+            for key, val in kwargs.items():
+                    if key == "created_at" or key == "updated_at":
+                        value = datetime.strptime(val,
+                                                  '%Y-%m-%dT%H:%M:%S.%f')
+                        setattr(self, key, value)
+                    else:
+                        setattr(self, key, val)
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()  # Datetime instance is created.
@@ -43,7 +43,7 @@ class BaseModel:
     def to_dict(self):  # dictionary representation of an instance/object
         """returns dict with all keys/values of __dict__ of the instance/obj"""
         new_dict = self.__dict__.copy()
-        new_dict["__class__"] = type(self).__name__
-        new_dict["created_at"] = self.created_at.isoformat()
-        new_dict["updated_at"] = self.updated_at.isoformat()
+        new_dict['__class__'] = type(self).__name__
+        new_dict['created_at'] = self.created_at.isoformat()
+        new_dict['updated_at'] = self.updated_at.isoformat()
         return new_dict

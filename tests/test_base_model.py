@@ -14,4 +14,3 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(bm1, "id"))
         self.assertNotEqual(bm1.id, bm2.id)
         self.assertIsInstance(bm1.id, str)
-

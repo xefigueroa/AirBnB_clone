@@ -2,6 +2,13 @@
 """Defines Class FileStorage"""
 import json
 import models
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
@@ -30,9 +37,9 @@ class FileStorage:
     def save(self):
         """serializes __objects to the JSON file"""
         cp_dict = {}
-        for key, value in self.__objects.items():
-            cp_dict[key] = value.to_dict()
         with open(self.__file_path, 'w') as f:
+            for key, value in self.__objects.items():
+                cp_dict[key] = value.to_dict()
             json.dump(cp_dict, f)
 
     def reload(self):
@@ -40,6 +47,11 @@ class FileStorage:
         try:
             with open(self.__file_path, 'r') as f:
                 my_dict = json.load(f)
-                self.__objects = my_dict
+                for key in my_dict:
+                    cls_d = {"BaseModel": BaseModel, "User": User, "State":
+                             State, "City": City, "Amenity": Amenity,
+                             "Place": Place, "Review": Review}
+                    self.__objects[key] = \
+                        cls_d[my_dict[key]["__class__"]](**my_dict[key])
         except FileNotFoundError:
             pass

@@ -41,8 +41,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif args in self.cls:
             new_inst = eval(args + "()")
+            storage.new(new_inst)
             print(new_inst.id)
-            new_inst.save()
+            storage.save()
         else:
             print("** class doesn't exists **")
 
@@ -123,10 +124,10 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) == 3:
             print("** value missing **")
         else:
-            if key in dic.keys():
-                d_obj = dic[key]
-                d_obj.update({args[2]: args[3]})
-                # d_obj.save()
+            for k, v in dic.items():
+                if args[1] == v.id:
+                    setattr(v, args[2], args[3])
+            storage.save()
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
