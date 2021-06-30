@@ -2,7 +2,7 @@
 """Defines class BaseModel"""
 from datetime import datetime
 from uuid import uuid4
-from models import storage
+import models
 
 
 class BaseModel:
@@ -28,7 +28,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()  # Datetime instance is created.
             self.updated_at = datetime.now()  # Updates every time obj changes.
-            storage.new(self)  # call to new() from file_storage.py
+            models.storage.new(self)  # call to new() from file_storage.py
 
     def __str__(self):
         """Prints BaseModel object/instance as a string"""
@@ -37,8 +37,8 @@ class BaseModel:
 
     def save(self):
         """Updates the public instance attribute with current datetime"""
-        self.update_at = datetime.now()
-        storage.save()  # storage var from __init__.py
+        self.updated_at = datetime.now()
+        models.storage.save()  # storage var from __init__.py
 
     def to_dict(self):  # dictionary representation of an instance/object
         """returns dict with all keys/values of __dict__ of the instance/obj"""
