@@ -59,4 +59,3 @@ class TestBaseModel(unittest.TestCase):
 
     def test_to_dict_method(self):
         """Tests to_dict method functionality"""
-
