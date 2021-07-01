@@ -14,5 +14,5 @@ class TestPlace(unittest.TestCase):
     def test_class(self):
         """Tests class name and inheritance"""
         pl = Place()
-        self.assertEqual(amen.__class__.__name__, "Place")
+        self.assertEqual(pl.__class__.__name__, "Place")
         self.assertTrue(issubclass(pl.__class__, BaseModel))
